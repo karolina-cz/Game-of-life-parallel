@@ -46,8 +46,6 @@ def add_redundant_bottom_row(sub_board, right):
   req = comm.irecv(source=right)
   comm.send(sub_board[-1], dest=right)
   bottom_row = req.wait()
-  # send_row(sub_board[-1], right)
-  # bottom_row = receive_row(right)
   sub_board = concatenate_board_row(sub_board, None, bottom_row)
   return sub_board
 
@@ -56,8 +54,6 @@ def add_redundant_top_row(sub_board, left):
   req = comm.irecv(source=left)
   comm.send(sub_board[0], dest=left)
   top_row = req.wait()
-  # send_row(sub_board[0], left)
-  # top_row = receive_row(left)
   sub_board = concatenate_board_row(sub_board, top_row, None)
   return sub_board
 
@@ -68,10 +64,6 @@ def add_redundant_both_rows(sub_board, left, right):
   comm.send(sub_board[0], dest=left)
   top_row = req1.wait()
   bottom_row = req2.wait()
-  # send_row(sub_board[0], left)
-  # send_row(sub_board[-1], right)
-  # top_row = receive_row(left)
-  # bottom_row = receive_row(right)
   sub_board = concatenate_board_row(sub_board, top_row, bottom_row)
   return sub_board
 
@@ -79,16 +71,10 @@ def exchange_bottom_row(sub_board, right):
   req = comm.irecv(source=right)
   comm.send(sub_board[-2], dest=right)
   bottom_row = req.wait()
-
-  # send_row(sub_board[-2], right)
-  # bottom_row = receive_row(right)
   sub_board[-1] = bottom_row
   return sub_board
 
 def exchange_top_row(sub_board, left):
-  # send_row(sub_board[1], left)
-  # top_row = receive_row(left)
-
   req = comm.irecv(source=left)
   comm.send(sub_board[1], dest=left)
   top_row = req.wait()
@@ -97,12 +83,6 @@ def exchange_top_row(sub_board, left):
   return sub_board
 
 def exchange_both_rows(sub_board, right, left):
-
-  # send_row(sub_board[-2], right)
-  # send_row(sub_board[1], left)
-  # top_row = receive_row(left)
-  # bottom_row = receive_row(right)
-
   req1 = comm.irecv(source=left)
   req2 = comm.irecv(source=right)
   comm.send(sub_board[-2], dest=right)
