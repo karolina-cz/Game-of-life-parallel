@@ -20,7 +20,7 @@ def get_iterations(args):
 
 def get_board(args):
   if args.file_in is not None:
-    board = pd.read_csv(args.file_in).to_numpy()
+    board = pd.read_csv(args.file_in, header=None).to_numpy()
   else:
     board = board_utils.generate_board(int(args.row), int(args.col))
   return board_utils.add_board_padding(board)
