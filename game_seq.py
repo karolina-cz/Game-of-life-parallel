@@ -29,6 +29,7 @@ def game_loop_no_display(board, iterations):
 
 def game_loop_with_display(board, iterations):
   for i in range (0, iterations):
+    print("computing iteration {}".format(i))
     board = board_utils.get_next_iteration(board)
     board_utils.display_board(board)
   return board
